@@ -1,6 +1,6 @@
 # OutwrittenNumber-
 
-Codeintervies für Bewerbungsverfahren bei der DAS
+Codeinterview für ein Bewerbungsverfahren bei der DAS
 
 Vorlegt von Leon Thomanek, 13.01.2022
 
@@ -20,7 +20,7 @@ einsmillioneneins * 5 + 5
 vierhunderttausendneun geteilt 5 + 5
 achzig * fuenf + siebenhunderttausenddrei
 
-## Auch ist es mögich die Teile des Strings als Zahl einzugeben
+## Auch ist es mögich teile des Strings als Zahl einzugeben
 4hundert -> 400
 1millionen3hunderttausend12 -> 1300012
 
