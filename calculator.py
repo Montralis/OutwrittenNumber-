@@ -59,6 +59,9 @@ def hasString():
                     # print("")
                     numberList[listIndex] = str(ONES[key])
 
+    if '' in numberList:
+        numberList.remove('')
+
     print(numberList)
     return found
 
@@ -84,6 +87,9 @@ def transform():
 
 #  convert the calculated list number in one int
 def listToNumber():
+    if '' in numberList:
+        numberList.remove('')
+
     print("Diese liste wollen wir umwandeln:", numberList)
     if len(numberList) == 1:  # if list contains only one element return
         return int(numberList[0])
@@ -233,7 +239,8 @@ elif calModus == "2":
             resultString += componentList[i]
 
         print("Interpretierte Berechnung:", resultString)  # interpreted calculation
-        print(eval(resultString))  # eval converts a cal. string into result ("2*2" = 4)
+        code = compile(resultString, "<string>", "eval")
+        print(eval(code))  # eval converts a cal. string into result ("2*2" = 4)
 
 elif calModus == "3":
     while 1:
