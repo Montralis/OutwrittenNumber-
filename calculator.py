@@ -136,13 +136,20 @@ def listToNumber():
         return sum(numberListInt)
 
     if '000' in str(numberListInt[1]):  # check for hunderttausend
-        numberListInt[1] = numberListInt[1] + (1000 * numberListInt[0])
+        if numberListInt[0] == 100 and numberListInt[1] == 1000:
+            numberListInt[1] = 100000
+        elif numberListInt[0] != 100 and numberListInt[1] == 1000:
+            numberListInt[1] = 100000 * numberListInt[0]
+        else:
+            numberListInt[1] = numberListInt[1] + (1000 * numberListInt[0])
         numberListInt.pop(0)
         return sum(numberListInt)
 
     elif '000' in str(numberListInt[2]):  # [1000000, 400, 43000, 500, 43] -> [1000000, 443000, 500, 43]
-        if numberListInt[2] == 1000:
+        if numberListInt[1] == 100 and numberListInt[2] == 1000:
             numberListInt[2] = (1000 * numberListInt[1])
+        elif numberListInt[1] != 100 and numberListInt[2] == 1000:
+            numberListInt[2] = 100000 * numberListInt[1]
         else:
             numberListInt[2] = numberListInt[2] + (1000 * numberListInt[1])
         numberListInt.pop(1)
