@@ -1,35 +1,28 @@
 # OutwrittenNumber-
 
-Codeinterview für ein Bewerbungsverfahren bei der DAS
+Calculator, which can process string entries in addition to normal number input. 
+Strings can only processed in German language. 
 
-Vorlegt von Leon Thomanek, 13.01.2022
-
-Der Rechner kann ausgeschreibe Zahlen in ein int umwandeln und berechnungen durchführen.
-
-## Beispieleingaben:
+## Functional:
 vierhundertneun mal -5 
 
 -5 mal vierhundertdrei
 
-7 geteil vierzigvier
+7 geteilt vierundvierzig
 
-dreimillioneneinshundertneuntausendvierigvier + einsmillioneneins
+dreimillioneneinhundertneuntausendvierundvierzig + einemillioneneins
 
-## Berechnungen mit mehreren Operatoren sind auch möglich:
+## Calculations with multible operations:
 einsmillioneneins * 5 + 5
 vierhunderttausendneun geteilt 5 + 5
-achzig * fuenf + siebenhunderttausenddrei
+achzig * fuenf plus siebenhunderttausenddrei
 
-## Auch ist es mögich teile des Strings als Zahl einzugeben
+## Futhermore input with numbers
 4hundert -> 400
 1millionen3hunderttausend12 -> 1300012
 
-
-## Wichtig! 
-Aufgrund des kurzen Zeitraumes und das Schreiben meiner Bachelorarbeit, ist es mir zeitlich 
-nicht gelungen Werte wie dreiundvierzig umzuwandeln. Bitte an dieser Stelle Vierzigdrei eingeben. 
--> Vierzigdreitausendneun -> 43009
-
-
 --------------
 Operatoren: +, -, *, /
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
