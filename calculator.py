@@ -5,6 +5,8 @@ import unittest
 
 # DICT, covers german input
 ONES = {'null': 0,
+        'ein' : 1,
+        'eine': 1,
         'eins': 1,
         'zwei': 2,
         'drei': 3,
@@ -15,8 +17,8 @@ ONES = {'null': 0,
         'acht': 8,
         'neun': 9,
         'zen': 10,
-        'zwoelf': 12,
         'elf': 11,
+        'zwoelf': 12,
         'zwanzig': 20,
         'dreißig': 30,
         'vierzig': 40,
@@ -39,6 +41,7 @@ def transformString(componentenString):
     numberList = [componentenString]
     while hasString():
         transform()
+        checkForUnd()
 
     return listToNumber()
 
@@ -69,20 +72,30 @@ def hasString():
 #  crete the list number
 #  for every item in numberList, check if can split into smaller part
 def transform():
-    for i in range(0, len(numberList)):
-        for value in ONES.keys():
-            tmpList = re.split("(" + value + ")", numberList[i])
+    for index, item in enumerate(numberList):
+        for value in reversed(ONES.keys()):
+            tmpList = re.split("(" + value + ")", item)
             if 'zig' in tmpList:
                 continue
 
             if len(tmpList) != 1:  # has found
                 if '' in tmpList:
                     tmpList.remove('')
-                numberList.pop(i)
+
+                numberList.pop(index)
                 for j in range(0, len(tmpList)):
-                    numberList.insert(i + j, tmpList[j])
+                    numberList.insert(index + j, tmpList[j])
+
                 return
     return
+
+
+def checkForUnd():
+    if "und" in numberList:
+        undIndex = numberList.index("und")
+        #  ones, dec = numberList[undIndex - 1], numberList[undIndex + 1]
+        numberList[undIndex - 1], numberList[undIndex + 1] = numberList[undIndex + 1], numberList[undIndex - 1]
+        numberList.pop(undIndex)
 
 
 #  convert the calculated list number in one int
@@ -112,7 +125,7 @@ def listToNumber():
                 count += int(numberList[index]) + int(numberList[index + 1])  # else just add
                 return count
 
-        elif index < listLen - 2:
+        elif index < listLen - 2:  # more than two items last in que
             if numberList[index + 1] == '100' and '1000' in numberList:  # factor is for 100k
                 if index < numberList.index("1000"):
                     count += int(numberList[index]) * 100000
@@ -196,7 +209,6 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(forTest_calculation("-einsmillioneneinshunderttausendvier - 1"), -1100005)
         self.assertEqual(forTest_calculation("4hundertvierzig geteilt 10"), 44)
         self.assertEqual(forTest_calculation("8hundert9 - 9"), 800)
-
 
 
 # -------END  TESTS ----------------------
