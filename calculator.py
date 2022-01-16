@@ -5,6 +5,8 @@ import unittest
 
 # DICT, covers german input
 ONES = {'null': 0,
+        'ein' : 1,
+        'eine': 1,
         'eins': 1,
         'zwei': 2,
         'drei': 3,
@@ -123,7 +125,7 @@ def listToNumber():
                 count += int(numberList[index]) + int(numberList[index + 1])  # else just add
                 return count
 
-        elif index < listLen - 2:
+        elif index < listLen - 2:  # more than two items last in que
             if numberList[index + 1] == '100' and '1000' in numberList:  # factor is for 100k
                 if index < numberList.index("1000"):
                     count += int(numberList[index]) * 100000
@@ -207,7 +209,6 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(forTest_calculation("-einsmillioneneinshunderttausendvier - 1"), -1100005)
         self.assertEqual(forTest_calculation("4hundertvierzig geteilt 10"), 44)
         self.assertEqual(forTest_calculation("8hundert9 - 9"), 800)
-
 
 
 # -------END  TESTS ----------------------
