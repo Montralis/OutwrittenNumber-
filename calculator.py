@@ -5,7 +5,7 @@ import unittest
 
 # DICT, covers german input
 ONES = {'null': 0,
-        'ein' : 1,
+        'ein': 1,
         'eine': 1,
         'eins': 1,
         'zwei': 2,
@@ -101,29 +101,30 @@ def checkForUnd():
 def sum_str(*values):
     return str(sum(int(s or '0') for s in values))
 
+
 #  convert the calculated list number in one int
 def listToNumber():
     if '' in numberList:
         numberList.remove('')
 
-    print("Diese liste wollen wir umwandeln:", numberList)
+    print("Diese Liste wollen wir umwandeln: ", numberList)
     if len(numberList) == 1:  # if list contains only one element return
         return int(numberList[0])
 
     count = 0
+    numberListInt = list(map(int, numberList))  # convert strings to int
 
-    #  einemillioneneinhundertvierundvierzigtausendneunhundertvier
-    numberListInt = list(map(int, numberList))
-
-    for index, item in enumerate(numberListInt):
+    for index, item in enumerate(
+            numberListInt):  # sum all multipliers for calculation [1000000, 4, 100, 40, 3, 1000, 5, 100, 40, 3] ->  [1000000, 4, 100, 43, 1000, 5, 100, 43]
         if index + 1 == len(numberListInt):
             continue
-        if numberListInt[index + 1] not in [100, 1000, 1000000] and numberListInt[index] not in [100, 1000, 1000000] and index + 1 < len(numberListInt):
+        if numberListInt[index + 1] not in [100, 1000, 1000000] and numberListInt[index] not in [100, 1000, 1000000]:
             numberListInt[index + 1] = numberListInt[index + 1] + numberListInt[index]
             numberListInt.pop(index)
 
     index = 0
-    while index < len(numberListInt) - 1:
+    while index < len(
+            numberListInt) - 1:  # multiple  [1000000, 4, 100, 43, 1000, 5, 100, 43]  ->  [1000000, 400, 43000, 500, 43]
         if numberListInt[index] in [100, 1000, 1000000]:
             index += 1
         else:
@@ -134,12 +135,12 @@ def listToNumber():
     if len(numberListInt) < 3:
         return sum(numberListInt)
 
-    if '000' in str(numberListInt[1]):
+    if '000' in str(numberListInt[1]):  # check for hunderttausend
         numberListInt[1] = numberListInt[1] + (1000 * numberListInt[0])
         numberListInt.pop(0)
         return sum(numberListInt)
 
-    elif '000' in str(numberListInt[2]):
+    elif '000' in str(numberListInt[2]):  # [1000000, 400, 43000, 500, 43] -> [1000000, 443000, 500, 43]
         if numberListInt[2] == 1000:
             numberListInt[2] = (1000 * numberListInt[1])
         else:
@@ -148,7 +149,6 @@ def listToNumber():
         return sum(numberListInt)
 
     return sum(numberListInt)
-
 
 
 #  Transform the input operator
