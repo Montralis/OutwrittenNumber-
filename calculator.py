@@ -5,13 +5,13 @@ import unittest
 
 # DICT, covers german input
 ONES = {'null': 0,
-        'ein' : 1,
+        'ein': 1,
         'eine': 1,
         'eins': 1,
         'zwei': 2,
         'drei': 3,
         'vier': 4,
-        'fünf': 5,
+        'fuenf': 5,
         'sechs': 6,
         'sieben': 7,
         'acht': 8,
@@ -98,54 +98,57 @@ def checkForUnd():
         numberList.pop(undIndex)
 
 
+def sum_str(*values):
+    return str(sum(int(s or '0') for s in values))
+
+
 #  convert the calculated list number in one int
 def listToNumber():
     if '' in numberList:
         numberList.remove('')
 
-    print("Diese liste wollen wir umwandeln:", numberList)
+    print("Diese Liste wollen wir umwandeln: ", numberList)
     if len(numberList) == 1:  # if list contains only one element return
         return int(numberList[0])
 
     count = 0
-    listLen = len(numberList)
+    numberListInt = list(map(int, numberList))  # convert strings to int
+
+    for index, item in enumerate(
+            numberListInt):  # sum all multipliers for calculation [1000000, 4, 100, 40, 3, 1000, 5, 100, 40, 3] ->  [1000000, 4, 100, 43, 1000, 5, 100, 43]
+        if index + 1 == len(numberListInt):
+            continue
+        if numberListInt[index + 1] not in [100, 1000, 1000000] and numberListInt[index] not in [100, 1000, 1000000]:
+            numberListInt[index + 1] = numberListInt[index + 1] + numberListInt[index]
+            numberListInt.pop(index)
+
     index = 0
-
-    while index < len(numberList):  # iterate over numberList
-
-        if index == listLen - 1:  # last item in list, just add and return
-            count += int(numberList[index])
-            return count
-
-        elif index == listLen - 2:  # second to last item
-            if numberList[index + 1] in ['100', '1000', '1000000']:  # if item is factor, multiply by item[index + 1]
-                count += int(numberList[index]) * int(numberList[index + 1])
-                return count
-            else:
-                count += int(numberList[index]) + int(numberList[index + 1])  # else just add
-                return count
-
-        elif index < listLen - 2:  # more than two items last in que
-            if numberList[index + 1] == '100' and '1000' in numberList:  # factor is for 100k
-                if index < numberList.index("1000"):
-                    count += int(numberList[index]) * 100000
-                    if numberList[index + 2] == "1000":
-                        index += 2
-                    else:
-                        index += 1
-            elif numberList[index + 2] in ['100', '1000', '1000000'] and numberList[index + 1] not in ['100', '1000',
-                                                                                                       '1000000']:
-                count += (int(numberList[index]) + int(numberList[index + 1])) * int(int(numberList[index + 2]))
-                index += 2
-            elif numberList[index + 1] in ['100', '1000', '1000000'] and numberList[index + 2] != '1000':
-                count += int(numberList[index]) * int(numberList[index + 1])
-                index += 1
+    while index < len(
+            numberListInt) - 1:  # multiple  [1000000, 4, 100, 43, 1000, 5, 100, 43]  ->  [1000000, 400, 43000, 500, 43]
+        if numberListInt[index] in [100, 1000, 1000000]:
+            index += 1
         else:
-            print("Error beim umwandeln", index, numberList)
+            numberListInt[index + 1] = numberListInt[index] * numberListInt[index + 1]
+            numberListInt.pop(index)
+            index += 1
 
-        index += 1
+    if len(numberListInt) < 3:
+        return sum(numberListInt)
 
-    return count
+    if '000' in str(numberListInt[1]):  # check for hunderttausend
+        numberListInt[1] = numberListInt[1] + (1000 * numberListInt[0])
+        numberListInt.pop(0)
+        return sum(numberListInt)
+
+    elif '000' in str(numberListInt[2]):  # [1000000, 400, 43000, 500, 43] -> [1000000, 443000, 500, 43]
+        if numberListInt[2] == 1000:
+            numberListInt[2] = (1000 * numberListInt[1])
+        else:
+            numberListInt[2] = numberListInt[2] + (1000 * numberListInt[1])
+        numberListInt.pop(1)
+        return sum(numberListInt)
+
+    return sum(numberListInt)
 
 
 #  Transform the input operator
