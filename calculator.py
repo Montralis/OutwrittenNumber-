@@ -16,7 +16,7 @@ ONES = {'null': 0,
         'sieben': 7,
         'acht': 8,
         'neun': 9,
-        'zen': 10,
+        'zehn': 10,
         'elf': 11,
         'zwoelf': 12,
         'zwanzig': 20,
@@ -224,12 +224,11 @@ class TestStringMethods(unittest.TestCase):
 # -------END  TESTS ----------------------
 
 # Begin of "main"
-print(" --- Willkommen im taschenrechner ---  \n")
+print(" --- Willkommen im Taschenrechner ---  \n")
 print(" Wählen Sie einen Modus:  \n")
 print(" 1: Automatische Tests ")
 print(" 2: Berechnungen per Eingabe ")
 print(" 3: Ausgeschriebene Zahl in einen Int umwandeln \n")
-print(" Bitte beachten: Zahlen, wie 43 (Dreiundvierzig) sind als Vierzigdrei einzutragen ")
 print(" Input wie 8hundert8 -> 808 sind auch möglich ")
 
 calModus = input("Modus:")
@@ -239,7 +238,7 @@ if calModus == "1":
 
 elif calModus == "2":
     while 1:
-        calString = input("Geben Sie hier ihre berechnung ein:")
+        calString = input("Geben Sie hier ihre Berechnung ein:")
         componentList = calString.split(" ")
 
         resultString = ""
